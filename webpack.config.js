@@ -25,7 +25,11 @@ process.env.BABEL_ENV = TARGET;
 
 const common = {
   entry: {
-    app: PATHS.app,
+    app: [
+      'webpack/hot/dev-server',
+      'webpack-hot-middleware/client',
+      PATHS.app
+    ],
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -59,7 +63,7 @@ const common = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'node_modules/html-webpack-template/index.ejs',
-      title: 'Kanban app',
+      title: 'Splatoon Squads',
       appMountId: 'app',
       inject: false
     })
