@@ -8,7 +8,7 @@ export default class Root extends React.Component {
       <Grid>
         <Row>
           <Col md={8} mdOffset={2}>
-            <Button>Login</Button>
+            <Button>Logint</Button>
           </Col>
         </Row>
       </Grid>

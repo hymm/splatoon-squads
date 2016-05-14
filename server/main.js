@@ -1,26 +1,36 @@
 'use strict';
-
 var express = require('express');
-var config = require('../webpack.config.js');
+var passport = require('passport');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var expressSession = require('express-session');
+
+//routes
+var login = require('./routes/user');
 
 var app = express();
 
-if (true) {
-//if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   let webpack = require('webpack'),
-    webpackConfig = require('./webpack.dev.config.js'),
+    webpackConfig = require('../webpack.config.js'),
     compiler = webpack(webpackConfig);
 
-  server.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: false,
     publicPath: webpackConfig.output.publicPath
   }));
 
-  server.use(require('webpack-hot-middleware')(compiler));
+  app.use(require('webpack-hot-middleware')(compiler));
 }
 
-var router = express.Router();
-//router.get('/', someController);
-//app.use(router);
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(expressSession({secret: 'rats and ships'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.listen(3000, ()=>console.log('listending on 3000'));
+//router.get('/', someController);
+//routes
+app.use(login);
+
+app.listen(3000, ()=>console.log('listening on 3000'));
