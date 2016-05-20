@@ -3,7 +3,8 @@ var express = require('express');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressSession = require('express-session');
+var session = require('express-session');
+var db = require('./db');
 
 //routes
 var login = require('./routes/user');
@@ -24,8 +25,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(cookieParser());
-app.use(bodyParser());
-app.use(expressSession({secret: 'rats and ships'}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({secret: 'rats and ships'}));
 app.use(passport.initialize());
 app.use(passport.session());
 

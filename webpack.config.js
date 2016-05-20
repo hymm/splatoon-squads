@@ -58,6 +58,10 @@ const common = {
         test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
         loader: 'file'
       },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=8192'
+      }
     ]
   },
   plugins: [
